@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int solve(string s, vector<string>& dictionary,int i, vector<int>&dp)
+    {
+        if(i==s.length()) return 0;
+        if(dp[i]!=-1) return dp[i];
+        int ans=INT_MAX;
+        for(auto j:dictionary)
+        {
+            if(s.substr(i,j.length())==j) ans=min(ans,solve(s,dictionary,i+j.length(),dp));
+        }
+        ans=min(ans,1+solve(s,dictionary,i+1,dp));
+        return dp[i]=ans;
+    }
+    int minExtraChar(string s, vector<string>& dictionary) {
+        vector<int>dp(s.length(),-1);
+        return solve(s,dictionary,0,dp);
+    }
+};
