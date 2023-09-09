@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int solve(vector<int>& nums, int target, unordered_map<int,int> & dp)
+    {
+        if(target<0) return 0;
+        if(target==0) return 1;
+        if(dp.find(target)!=dp.end()) return dp[target];
+        int ans=0;
+        for(auto i:nums)
+        {
+            ans+=solve(nums,target-i,dp);
+        }
+        return dp[target]=ans;
+    }
+    int combinationSum4(vector<int>& nums, int target) {
+        unordered_map<int,int>dp;
+        return solve(nums,target,dp);
+    }
+};
